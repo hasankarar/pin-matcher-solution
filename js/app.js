@@ -20,12 +20,47 @@ document.getElementById('generate_pin').addEventListener('click', function () {
     dispalytext.value = pin;
 })
 
-
 document.getElementById('calculator').addEventListener('click', function (event) {
+    const number = event.target.innerText;
+    const typeNumber = document.getElementById('type_number');
+    const preTypeNumber = typeNumber.value;
+    if (isNaN(number)) {
+        if (number === 'C') {
+            typeNumber.value = '';
+        } else if (number === '<') {
+            const digits = preTypeNumber.split('');
+            digits.pop();
+            const remainingDigit = digits.join('');
+            typeNumber.value = remainingDigit;
+        }
 
-    console.log(event.target.innerText);
-
-
-
+    } else {
+        const newTypeNumber = preTypeNumber + number;
+        typeNumber.value = newTypeNumber;
+    }
 })
+
+document.getElementById('verify_pin').addEventListener('click', function () {
+    const displayfield = document.getElementById('input_show');
+    const currentPin = displayfield.value;
+
+    const typeNumberField = document.getElementById('type_number');
+    const typeNumberFiedlValue = typeNumberField.value;
+
+    const pinSuccess = document.getElementById('pin_success');
+    const pinFaild = document.getElementById('pin_fail');
+
+    if (typeNumberFiedlValue == currentPin) {
+        pinSuccess.style.display = 'block';
+        pinFaild.style.display = 'none';
+
+
+    } else {
+        const pinFaild = document.getElementById('pin_fail');
+        pinFaild.style.display = 'block';
+        pinSuccess.style.display = 'none';
+
+    }
+
+});
 
